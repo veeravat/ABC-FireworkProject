@@ -1,0 +1,25 @@
+rg="locust"
+result="$(az container list -g $rg -o tsv --query '[].name')"
+for name in $result
+do
+az container restart -g $rg --name $name --no-wait
+done
+az container list -o table
+
+
+
+# PowerShell
+$rg="Loadtesting"
+$result=$(az container list -g $rg -o tsv --query '[].name')
+ForEach ($name in $result) {
+    echo "Working on: $name"
+    az container restart -g $rg --name $name --no-wait
+} 
+
+
+az container list -g $rg -o table 
+
+locust -f .\locustfile.py  --master
+locust -f .\locustfile.py  --worker
+
+start powershell {locust -f .\locustfile.py  --worker}
