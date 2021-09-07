@@ -23,7 +23,6 @@ namespace fireworkWeb
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddSignalR().AddAzureSignalR(Configuration.GetConnectionString("SignalR"));
             services.AddControllersWithViews();
         }
 
@@ -49,7 +48,6 @@ namespace fireworkWeb
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapHub<FireworkHub>("/fireworkhub");
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
