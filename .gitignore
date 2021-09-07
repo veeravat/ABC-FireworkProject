@@ -41,3 +41,6 @@ nupkg/
 bfg.jar
 password.txt
 runthis-before-commit.azcli
+.terraform
+.terraform*
+*.tfstate*
