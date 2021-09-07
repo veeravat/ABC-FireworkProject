@@ -55,11 +55,20 @@ namespace FireworkServices
                 Configuration.GetValue<String>("APPINSIGHTS_INSTRUMENTATIONKEY")
             );
             services.ConfigureTelemetryModule<DependencyTrackingTelemetryModule>((module, o) => { module.EnableSqlCommandTextInstrumentation = true; });
-
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAll", policy =>
+                {
+                    policy.AllowAnyOrigin()
+                        .AllowAnyHeader()
+                        .AllowAnyMethod()
+                        .Build();
+                });
+            });
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "FireworkServices", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "FireworkServices", Version = "v1.2" });
             });
         }
 
@@ -73,22 +82,20 @@ namespace FireworkServices
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "FireworkServices v1.1"));
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "FireworkServices v1.21"));
             }
 
+            using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
+            {
+                var context = serviceScope.ServiceProvider.GetRequiredService<FireworkContext>();
+                context.Database.EnsureCreated();
+            }
+
+            app.UseCors("AllowAll");
+
             app.UseHttpsRedirection();
-
             app.UseRouting();
-
             app.UseAuthorization();
-
-            app.UseCors(x => x
-            .AllowAnyMethod()
-            .AllowAnyHeader()
-            .SetIsOriginAllowed(origin => true) // allow any origin
-            .AllowCredentials() // allow credentials
-            );
-
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapHub<FireworkSignalR>("/fireworkhub");
