@@ -93,7 +93,7 @@ resource "azurerm_function_app" "fn" {
     "SQLServer"                             = local.sqlconn
     "APPINSIGHTS_INSTRUMENTATIONKEY"        = azurerm_application_insights.AI.instrumentation_key
     "APPLICATIONINSIGHTS_CONNECTION_STRING" = "InstrumentationKey=${azurerm_application_insights.AI.instrumentation_key};IngestionEndpoint=https://southeastasia-1.in.applicationinsights.azure.com/"
-    "<Replace with api url>"                             = lower("https://web-${var.fireworkSetting.name}-api-${random_id.uniqID.id}.azurewebsites.net/Firework/signalR")
+    "WebAPIURL"                             = lower("https://web-${var.fireworkSetting.name}-api-${random_id.uniqID.id}.azurewebsites.net/Firework/signalR")
   }
 
 }

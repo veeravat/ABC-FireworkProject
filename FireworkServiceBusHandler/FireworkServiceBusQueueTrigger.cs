@@ -67,7 +67,7 @@ namespace Ranger.FireworkHandler
                         Encoding.UTF8,
                         "application/json"
                     );
-                    var apiurl = Environment.GetEnvironmentVariable("<Replace with api url>");
+                    var apiurl = Environment.GetEnvironmentVariable("WebAPIURL");
                     await client.PostAsync(
                         apiurl,
                         content

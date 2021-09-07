@@ -6,7 +6,7 @@ resource "azurerm_mssql_server" "sqlSV" {
   resource_group_name           = azurerm_resource_group.rg.name
   location                      = azurerm_resource_group.rg.location
   version                       = "12.0"
-  administrator_login           = "<Replace with connection string>"
+  administrator_login           = "azureuser"
   administrator_login_password  = random_password.password.result
   minimum_tls_version           = "1.2"
   public_network_access_enabled = true
@@ -72,7 +72,7 @@ resource "azurerm_signalr_service" "SignalR" {
   }
 }
 locals {
-  sqlconn   = "Server=tcp:${azurerm_mssql_server.sqlSV.fully_qualified_domain_name},1433;Initial Catalog=${azurerm_mssql_database.sqlDB.name};Persist Security Info=False;User ID=<Replace with connection string>;Password=${random_password.password.result};MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"
+  sqlconn   = "Server=tcp:${azurerm_mssql_server.sqlSV.fully_qualified_domain_name},1433;Initial Catalog=${azurerm_mssql_database.sqlDB.name};Persist Security Info=False;User ID=azureuser;Password=${random_password.password.result};MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"
   redisConn = azurerm_redis_cache.redis.primary_connection_string
   SBConn    = azurerm_servicebus_namespace_authorization_rule.sbKey.primary_connection_string
   SRConn    = azurerm_signalr_service.SignalR.primary_connection_string
