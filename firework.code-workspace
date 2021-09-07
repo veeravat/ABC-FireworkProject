@@ -1,0 +1,14 @@
+{
+	"folders": [
+		{
+			"path": "fireworkWeb"
+		},
+		{
+			"path": "FireworkServices"
+		},
+		{
+			"path": "FireworkServiceBusHandler"
+		}
+	],
+	"settings": {}
+}
