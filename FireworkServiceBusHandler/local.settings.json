@@ -7,6 +7,6 @@
     "SQLServer": "<Replace with connection string>",
     "APPINSIGHTS_INSTRUMENTATIONKEY": "<InstrumentKey>",
     "APPLICATIONINSIGHTS_CONNECTION_STRING": "InstrumentationKey=<InstrumentKey>;IngestionEndpoint=https://southeastasia-1.in.applicationinsights.azure.com/",
-    "<Replace with api url>": "<Replace with api url>"
+    "WebAPIURL": "/"
   }
 }
