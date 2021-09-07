@@ -29,6 +29,7 @@ namespace FireworkServices.Repo
             this.telemetry = telemetry;
             this.signalR = signalR;
             this.redisCache = redisCache.GetDatabase();
+            db.Database.EnsureCreated();
         }
 
         public async Task<decimal> GetTotalFireworkAsync()
@@ -58,7 +59,7 @@ namespace FireworkServices.Repo
                 await redisCache.StringSetAsync(
                     "TotalFirework",
                     fireworks.ToString(),
-                    TimeSpan.FromMinutes(5)
+                    TimeSpan.FromMinutes(1)
                     );
                 timer.Stop();
                 telemetry.TrackDependency("Redis", "GetFirework", $"Loaded total firework from db", startTime, timer.Elapsed, success);
