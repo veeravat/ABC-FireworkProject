@@ -6,7 +6,7 @@ project.lock.json
 nupkg/
 
 # Visual Studio Code
-.vscode
+# .vscode
 
 # Rider
 .idea
@@ -44,3 +44,4 @@ runthis-before-commit.azcli
 .terraform
 .terraform*
 *.tfstate*
+buildscript.azcli
